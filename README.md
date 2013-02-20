@@ -20,11 +20,11 @@ Or install it yourself as:
 
 To get free proxy list:
   
-  ProxyFetcher.list # returns array of ProxyFetcher::Proxy objects
+    ProxyFetcher.list # returns array of ProxyFetcher::Proxy objects
 
 Or you can get random proxy
 
-  ProxyFetcher.random_proxy # returns single ProxyFetcher::Proxy object
+    ProxyFetcher.random_proxy # returns single ProxyFetcher::Proxy object
 
 ## Proxy
 
