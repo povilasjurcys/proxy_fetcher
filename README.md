@@ -1,6 +1,6 @@
 # ProxyFetcher
 
-TODO: Write a gem description
+ProxyFetcher returns list of free proxies from various sources.
 
 ## Installation
 
@@ -26,14 +26,14 @@ Or you can get random proxy
 
     ProxyFetcher.random_proxy # returns single ProxyFetcher::Proxy object
 
-## Proxy
+## ProxyFetcher::Proxy
 
-Proxy contains following fields:
+ProxyFetcher::Proxy contains following fields:
 * ip
 * port
 * ssl - boolean value, true if proxy has ssl
-* type - can be Anonymous / Transparent / etc...
-* registered_at - date when proxy was registered in free proxy DB
+* type - optional information from proxy list provider. Value can be Anonymous / Transparent / etc...
+* registered_at - date when proxy was registered it proxy list provider
 * country_code
 * source - url where proxy was found
 * latency

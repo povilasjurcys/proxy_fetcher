@@ -6,7 +6,7 @@ require 'proxy_fetcher/version'
 Gem::Specification.new do |gem|
   gem.name          = "proxy_fetcher"
   gem.version       = ProxyFetcher::VERSION
-  gem.authors       = ["Povilas Jurčys"]
+  gem.authors       = ["Povilas Jurcys"]
   gem.email         = ["povilas@d9.lt", "bloomrain@gmail.com"]
   gem.description   = %q{Use this gem to get newest free proxies list from various sources}
   gem.summary       = %q{Use this gem to get newest free proxies list from various sources}
