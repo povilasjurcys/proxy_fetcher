@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'proxy_fetcher'
+    gem 'proxy_fetcher', git: "git@github.com:bloomrain/proxy_fetcher.git"
 
 And then execute:
 
@@ -18,7 +18,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To get free proxy list:
+  
+  ProxyFetcher.list # returns array of ProxyFetcher::Proxy objects
+
+Or you can get random proxy
+
+  ProxyFetcher.random_proxy # returns single ProxyFetcher::Proxy object
+
+## Proxy
+
+Proxy contains following fields:
+* ip
+* port
+* ssl - boolean value, true if proxy has ssl
+* type - can be Anonymous / Transparent / etc...
+* registered_at - date when proxy was registered in free proxy DB
+* country_code
+* source - url where proxy was found
+* latency
+* reliability
+
 
 ## Contributing
 
