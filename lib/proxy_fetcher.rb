@@ -1,9 +1,11 @@
 require "proxy_fetcher/version"
 
-class ProxyFetcher
+module ProxyFetcher
   SOURCES = ["http://www.xroxy.com/proxyrss.xml"]
+  @@list = nil
 
   def self.list
+    return @@list if @@list.present?
     require 'open-uri'
     list = {}
     SOURCES.each do |url|
@@ -23,7 +25,7 @@ class ProxyFetcher
         }
       end
     end
-    list.to_a.map(&:last)
+    @@list = list.to_a.map(&:last)
   end
 
   def self.random_proxy
