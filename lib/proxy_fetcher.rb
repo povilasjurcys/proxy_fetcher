@@ -8,6 +8,7 @@ module ProxyFetcher
     "http://www.freeproxylists.com/rss", 
     "http://www.proxz.com/proxylists.xml"
   ]
+  SOURCE_CACHE_DURATION = 3.hours
   
   @@list = nil
 
@@ -16,13 +17,26 @@ module ProxyFetcher
 
     list = {}
     SOURCES.each do |url|
-      xml = Nokogiri::XML(open url)
+      xml = Nokogiri::XML(self.xml_source url)
+
       xml.xpath("//prx:proxy").each do |node|
         proxy = ProxyFetcher::Proxy.new( self.xml_node_to_hash(node, url) )
         list["#{proxy.ip}:#{proxy.port}"] ||= proxy
       end
     end
     @@list = list.to_a.map(&:last)
+  end
+
+  def self.xml_source(url)
+    source_key = "proxy_fetcher/xml_source:#{url}"
+    date_key = "#{key}/last_updated"
+
+    xml = Rails.cache.read(source_key) || open(url)
+    if !Rails.cache.exist?(source_key) or Time.now - Rails.cache.read(date_key) > SOURCE_CACHE_DURATION
+      Rails.cache.write(source_key, xml)
+      Rails.cache.write(date_key, Time.now)
+    end
+    xml
   end
 
   def self.xml_node_to_hash(node, source)
