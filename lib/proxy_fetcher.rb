@@ -8,7 +8,7 @@ module ProxyFetcher
     "http://www.freeproxylists.com/rss", 
     "http://www.proxz.com/proxylists.xml"
   ]
-  SOURCE_CACHE_DURATION = 3.hours
+  SOURCE_CACHE_DURATION = 12.hours
   
   @@list = nil
 
