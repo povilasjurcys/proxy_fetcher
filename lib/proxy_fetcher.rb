@@ -29,12 +29,19 @@ module ProxyFetcher
 
   def self.xml_source(url)
     source_key = "proxy_fetcher/xml_source:#{url}"
-    date_key = "#{key}/last_updated"
+    date_key = "#{source_key}/last_updated"
 
-    xml = Rails.cache.read(source_key) || open(url)
-    if !Rails.cache.exist?(source_key) or Time.now - Rails.cache.read(date_key) > SOURCE_CACHE_DURATION
-      Rails.cache.write(source_key, xml)
-      Rails.cache.write(date_key, Time.now)
+    xml = ""
+    if Rails.cache.exist?(source_key) and Time.now - Rails.cache.read(date_key) > SOURCE_CACHE_DURATION
+      xml = Rails.cache.read(source_key)
+    else
+      begin
+        xml = open(url)
+        Rails.cache.write(source_key, xml.to_s)
+        Rails.cache.write(date_key, Time.now)
+      rescue Exception => e
+        raise e unless e.is_a?(Timeout::Error)
+      end      
     end
     xml
   end
